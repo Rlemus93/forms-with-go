@@ -1,0 +1,56 @@
+{{define "modal-form"}}
+<!-- Open the modal using ID.showModal() method -->
+<dialog data-theme="light" id="my_modal_1" class="modal">
+  <div class="modal-box max-w-xl w-full">
+    <h3 class="font-bold text-lg mb-4">New Entry</h3>
+    <form method="dialog" class="space-y-4">
+      <div>
+        <label class="label">
+          <span class="label-text">Name</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered w-full"
+          placeholder="Name"
+          name="name"
+          value="{{.Name}}"
+        />
+      </div>
+      <div>
+        <label class="label">
+          <span class="label-text">Job</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered w-full"
+          placeholder="Job"
+          name="job"
+          value="{{.Job}}"
+        />
+      </div>
+      <div>
+        <label class="label">
+          <span class="label-text">Favorite Color</span>
+        </label>
+        <input
+          type="text"
+          class="input input-bordered w-full"
+          placeholder="Favorite Color"
+          name="favorite_color"
+          value="{{.FavoriteColor}}"
+        />
+      </div>
+      <div class="modal-action flex justify-between">
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <button
+          class="btn btn-outline"
+          type="button"
+          onclick="this.closest('dialog').close()"
+        >
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
+</dialog>
+{{end}}
