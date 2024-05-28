@@ -1,51 +1,83 @@
 {{define "modal-form"}}
-<!-- Open the modal using ID.showModal() method -->
-<dialog data-theme="light" id="my_modal_1" class="modal">
-  <div class="modal-box max-w-xl w-full">
-    <h3 class="font-bold text-lg mb-4">New Entry</h3>
-    <form method="dialog" class="space-y-4">
-      <div>
-        <label class="label">
-          <span class="label-text">Name</span>
-        </label>
-        <input
-          type="text"
-          class="input input-bordered w-full"
-          placeholder="Name"
-          name="name"
-          value="{{.Name}}"
-        />
+<dialog data-theme="cupcake" id="my_modal_1">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg mb-4 text-center">Fill out the form</h3>
+    <form
+      hx-post="/create"
+      hx-target="#people-table"
+      hx-swap="outerHTML"
+      hx-on="htmx:afterRequest: resetAndCloseModal()"
+      class="space-y-4"
+    >
+      <div class="flex flex-col items-center space-y-4">
+        <div class="w-full max-w-lg">
+          <label class="label mt-9">
+            <span class="label-text">Name:</span>
+          </label>
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            placeholder="Name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="w-full max-w-lg">
+          <label class="label">
+            <span class="label-text">Job:</span>
+          </label>
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            placeholder="Job"
+            name="job"
+            required
+          />
+        </div>
+        <div class="w-full max-w-lg">
+          <label class="label">
+            <span class="label-text">Favorite Language:</span>
+          </label>
+          <input
+            type="text"
+            class="input input-bordered w-full"
+            placeholder="Favorite Language"
+            name="favorite_language"
+            required
+          />
+        </div>
+        <div class="w-full max-w-lg">
+          <label class="label">
+            <span class="label-text">Email:</span>
+          </label>
+          <input
+            type="email"
+            class="input input-bordered w-full"
+            placeholder="Email"
+            name="email"
+            required
+          />
+        </div>
+        <div class="w-full max-w-lg">
+          <label class="label">
+            <span class="label-text">Employed:</span>
+          </label>
+          <select
+            class="select select-bordered w-full"
+            name="employed"
+            required
+          >
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label class="label">
-          <span class="label-text">Job</span>
-        </label>
-        <input
-          type="text"
-          class="input input-bordered w-full"
-          placeholder="Job"
-          name="job"
-          value="{{.Job}}"
-        />
-      </div>
-      <div>
-        <label class="label">
-          <span class="label-text">Favorite Color</span>
-        </label>
-        <input
-          type="text"
-          class="input input-bordered w-full"
-          placeholder="Favorite Color"
-          name="favorite_color"
-          value="{{.FavoriteColor}}"
-        />
-      </div>
-      <div class="modal-action flex justify-between">
+      <div class="modal-action flex justify-between mt-4">
         <button class="btn btn-primary" type="submit">Submit</button>
         <button
           class="btn btn-outline"
           type="button"
-          onclick="this.closest('dialog').close()"
+          onclick="resetAndCloseModal()"
         >
           Close
         </button>
@@ -53,4 +85,19 @@
     </form>
   </div>
 </dialog>
+<script>
+  function resetAndCloseModal() {
+    const modal = document.getElementById("my_modal_1")
+    const form = modal.querySelector("form")
+    form.reset()
+    modal.close()
+  }
+
+  // Attach event listener to HTMX events
+  document.addEventListener("htmx:afterRequest", function (evt) {
+    if (evt.detail.target === document.querySelector("#people-table")) {
+      resetAndCloseModal()
+    }
+  })
+</script>
 {{end}}

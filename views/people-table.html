@@ -1,0 +1,38 @@
+{{define "people-table"}}
+<div id="people-table" class="overflow-x-auto mt-4">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Job</th>
+        <th>Favorite Language</th>
+        <th>Email</th>
+        <th>Employed</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .}}
+      <tr>
+        <th>{{.ID}}</th>
+        <td>{{.Name}}</td>
+        <td>{{.Job}}</td>
+        <td>{{.FavoriteLanguage}}</td>
+        <td>{{.Email}}</td>
+        <td>{{if .Employed}}Yes{{else}}No{{end}}</td>
+        <td>
+          <button
+            hx-delete="/delete?id={{.ID}}"
+            hx-target="#people-table"
+            hx-swap="outerHTML"
+            class="btn btn-outline"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>
+{{end}}

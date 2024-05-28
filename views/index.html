@@ -5,38 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Practice Forms</title>
     <link href="/dist/styles.css" rel="stylesheet" />
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
   </head>
   <body class="bg-base-200 flex flex-col min-h-screen">
     <div class="flex-grow container mx-auto p-4">
       <h1 class="text-4xl font-bold">Hello, World!</h1>
-      <p class="mt-4">please click the button below to populate a new form</p>
-      <button onclick="my_modal_1.showModal()" class="mt-4 btn btn-primary">
+      <p class="mt-4">Please click the button below to populate a new form</p>
+      <button
+        onclick="document.getElementById('my_modal_1').showModal()"
+        class="mt-4 btn btn-primary"
+      >
         New Form
       </button>
-      {{template "modal-form"}}
-      <div class="overflow-x-auto mt-4">
-        <table class="ml-2 table">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{range .}}
-            <tr>
-              <th>{{.ID}}</th>
-              <td>{{.Name}}</td>
-              <td>{{.Job}}</td>
-              <td>{{.FavoriteColor}}</td>
-            </tr>
-            {{end}}
-          </tbody>
-        </table>
-      </div>
+      {{template "modal-form" .}} {{template "people-table" .}}
     </div>
     {{template "footer"}}
   </body>
